@@ -1,0 +1,67 @@
+/* Layout do Portal ComexRio, mesmos tokens do motion-portal (template/film/tema.css) */
+:root{
+  --creme:#F0ECE5;--creme2:#E7E1D7;--branco:#FFFFFF;
+  --azul-fundo:#06305B;--azul-vivo:#0085CF;--azul-claro:#65B4E4;--azul-marca:#004786;
+  --navy:#0A2E5C;--cinza:#6E7C93;--cinza-claro:#B7C0CE;--laranja:#E9672B;
+  --exp:#0085CF;--imp:#E9672B;--fio:rgba(10,46,92,.10);
+  --sombra:0 2px 4px rgba(10,46,92,.05),0 18px 50px -12px rgba(10,46,92,.22);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--creme);color:var(--navy);font-family:Manrope,Arial,sans-serif;line-height:1.4}
+header{background:var(--creme)}
+.faixa{max-width:1200px;margin:0 auto;padding:28px 16px 8px}
+.logo{height:46px;display:block}
+.kicker{margin:34px 0 0;font-weight:800;font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:var(--azul-marca)}
+.kicker::before{content:"";display:block;width:48px;height:4px;background:var(--laranja);margin-bottom:14px;border-radius:3px}
+h1{font-size:clamp(34px,5.4vw,64px);font-weight:800;letter-spacing:-.03em;line-height:1.04;margin:12px 0 10px}
+.caixa{display:inline-block;background:var(--azul-vivo);color:#fff;padding:.02em .2em .08em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.sub{margin:0;max-width:760px;font-size:16px;font-weight:600;color:var(--cinza)}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:26px}
+.kpi{background:#fff;padding:20px;border-radius:18px;box-shadow:var(--sombra)}
+.kpi span{display:block;font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--azul-marca)}
+.kpi strong{display:block;font-size:clamp(26px,3vw,38px);font-weight:800;letter-spacing:-.02em;margin-top:6px;font-variant-numeric:tabular-nums}
+.kpi em{display:inline-block;margin-top:6px;font-style:normal;font-size:13px;font-weight:800;color:var(--azul-vivo)}
+.kpi.destaque{background:var(--azul-fundo);color:#fff}
+.kpi.destaque span{color:var(--azul-claro)}
+.kpi.destaque strong{color:var(--laranja)}
+.kpi.destaque em{color:#fff}
+main{max-width:1200px;margin:0 auto;padding:22px 16px 48px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+section{background:#fff;padding:24px;border-radius:18px;box-shadow:var(--sombra)}
+section.largo{grid-column:1/-1}
+h2{margin:0 0 4px;font-size:22px;font-weight:800;letter-spacing:-.02em}
+.nota{margin:0 0 16px;font-size:13px;font-weight:600;color:var(--cinza)}
+.legenda{display:flex;gap:16px;font-size:13px;font-weight:800;margin-bottom:8px}
+.legenda span{display:flex;align-items:center;gap:6px}
+.legenda i{width:14px;height:3px;border-radius:2px}
+.grafico{position:relative;height:300px}
+.barras{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.barras li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;font-size:14px;font-weight:700}
+.barras li b{font-weight:800;font-variant-numeric:tabular-nums}
+.barras li div{grid-column:1/-1;height:10px;background:var(--creme);border-radius:0 4px 4px 0}
+.barras li div i{display:block;height:100%;border-radius:0 4px 4px 0}
+.barras li .nome{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.troca{display:inline-flex;margin-bottom:14px;background:var(--creme);border-radius:40px;padding:4px}
+.troca button{border:0;background:transparent;color:var(--navy);font:800 13px Manrope,Arial;padding:8px 14px;border-radius:40px;cursor:pointer}
+.troca button[aria-pressed="true"]{background:var(--navy);color:#fff}
+details{margin-top:12px;font-size:13px}
+summary{cursor:pointer;font-weight:800;color:var(--azul-marca)}
+table{border-collapse:collapse;width:100%;margin-top:8px;font-variant-numeric:tabular-nums}
+th,td{padding:6px 8px;border-bottom:1px solid var(--fio);text-align:right}
+th:first-child,td:first-child{text-align:left}
+footer{max-width:1200px;margin:0 auto;padding:0 16px 40px;font-size:13px;font-weight:600;color:var(--cinza)}
+.carregando{grid-column:1/-1;text-align:center;padding:60px 0;font-weight:800}
+a.acao{display:inline-flex;align-items:center;gap:8px;margin-top:22px;padding:12px 22px;border-radius:40px;background:#fff;box-shadow:var(--sombra);font-weight:800;font-size:14px;color:var(--navy);text-decoration:none}
+a.acao::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--laranja)}
+/* busca por produto */
+.busca{position:relative;margin-top:24px;max-width:760px}
+.busca input{width:100%;font:700 17px Manrope,Arial;padding:18px 22px;border:0;border-radius:40px;background:#fff;color:var(--navy);box-shadow:var(--sombra)}
+.busca input:focus{outline:3px solid var(--azul-vivo)}
+.sugestoes{list-style:none;margin:8px 0 0;padding:0;position:absolute;left:0;right:0;top:100%;background:#fff;border-radius:18px;max-height:360px;overflow:auto;box-shadow:var(--sombra);z-index:5}
+.sugestoes:empty{display:none}
+.sugestoes button{display:grid;grid-template-columns:96px 1fr;gap:10px;width:100%;text-align:left;border:0;border-bottom:1px solid var(--fio);background:#fff;padding:12px 18px;font:700 14px Manrope,Arial;color:var(--navy);cursor:pointer}
+.sugestoes button:hover,.sugestoes button:focus{background:var(--creme);outline:0}
+.sugestoes code{font:800 13px Manrope,Arial;color:var(--azul-marca)}
+.escolhido{margin:18px 0 0;font-size:15px;font-weight:700;color:var(--navy)}
+.escolhido:empty{display:none}
+.vazio{color:var(--cinza);font-size:14px;font-weight:700;margin:0}
+@media(max-width:860px){.kpis{grid-template-columns:1fr 1fr}main{grid-template-columns:1fr}}

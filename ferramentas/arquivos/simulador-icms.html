@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta name="robots" content="noindex,nofollow"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Simulador de ICMS Portal ComexRio</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0A2E5C;--navy2:#06305B;--laranja:#E9672B;--cinza:#F0ECE5;--fio:#0A2E5C26;--apoio:#44597a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cinza);color:var(--navy);font-family:Manrope,Arial,sans-serif;line-height:1.4}
+main{max-width:1160px;margin:0 auto;padding:32px 16px 48px}
+.selo{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:800;letter-spacing:3px}
+.selo i{width:12px;height:12px;background:var(--laranja)}
+h1{font-size:clamp(32px,5vw,52px);font-weight:800;line-height:1.05;letter-spacing:-1px;margin:18px 0 8px}
+.apoio{font-size:17px;font-weight:500;color:var(--apoio);margin:0 0 28px;max-width:720px}
+.grade{display:grid;grid-template-columns:320px 1fr;gap:24px;align-items:start}
+.painel{background:var(--navy);color:#fff;padding:24px;display:flex;flex-direction:column;gap:18px;position:sticky;top:16px}
+label{display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:700}
+input,select{font:600 16px Manrope,Arial;padding:12px;border:1px solid #c9d1de;background:#fff;color:var(--navy);width:100%}
+.check{flex-direction:row;align-items:center;gap:10px;font-weight:500}
+.check input{width:20px;height:20px;flex:none}
+fieldset{border:0;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}
+legend{font-size:14px;font-weight:700;margin-bottom:10px;padding:0}
+.gate{background:var(--navy2);color:#fff;padding:24px;margin-bottom:12px}
+.gate h2{margin:0 0 4px;font-size:24px;font-weight:800}
+.gate p{margin:0 0 14px;font-size:15px;font-weight:500;color:#dfe6f0}
+.gate form{display:grid;grid-template-columns:1fr auto;gap:10px}
+.gate small{display:block;margin-top:10px;font-size:13px;font-weight:500;color:#dfe6f0}
+.gate a{color:#fff}
+button{font:800 15px Manrope,Arial;background:var(--laranja);color:var(--navy);border:0;padding:13px 20px;cursor:pointer}
+.lista{display:flex;flex-direction:column;gap:12px}
+.card{background:#fff;padding:20px;border:1px solid var(--fio)}
+.card.top{border:2px solid var(--laranja)}
+.topo{display:grid;grid-template-columns:1fr 110px 150px;gap:14px;align-items:center}
+.card h2{font-size:22px;font-weight:800;margin:0}
+.card h2 span{font-weight:500}
+.tag{display:inline-block;background:var(--laranja);color:var(--navy);font-size:11px;font-weight:800;letter-spacing:1px;padding:3px 8px;margin-bottom:6px}
+.num{font-size:28px;font-weight:800;white-space:nowrap;font-variant-numeric:tabular-nums}
+.oculto{filter:blur(8px);user-select:none}
+.rot{font-size:12px;font-weight:700;color:var(--apoio)}
+.barra{height:10px;background:var(--cinza);margin:14px 0 10px}
+.barra i{display:block;height:100%;background:var(--navy2)}
+.card.top .barra i{background:var(--laranja)}
+.eco{font-size:15px;font-weight:500;margin:0}
+.eco b{font-weight:800}
+.det{display:grid;grid-template-columns:1fr 1fr;gap:18px;border-top:1px solid var(--fio);margin-top:14px;padding-top:14px;font-size:14px;font-weight:500}
+.det h3{font-size:12px;font-weight:800;letter-spacing:1px;margin:0 0 6px;text-transform:uppercase}
+.det ul{margin:0;padding-left:18px}
+.det p{margin:0 0 12px}
+.falta{color:#8a3b0a;font-weight:800}
+.nota{font-size:13px;font-weight:500;color:var(--apoio);margin-top:16px}
+@media(max-width:820px){.grade,.det{grid-template-columns:1fr}.painel{position:static}.topo{grid-template-columns:1fr 1fr}.topo>div:first-child{grid-column:1/-1}.gate form{grid-template-columns:1fr}}
+
+/* visual do brandbook dos motions */
+body{background:#F0ECE5}h1,h2,h3{letter-spacing:-.02em}button,.botao,input,select{border-radius:14px}
+</style></head><body><main>
+<div class="selo"><i></i>PORTAL COMEXRIO</div>
+<h1>Quanto de ICMS sua venda paga em cada programa?</h1>
+<p class="apoio">Compare Rio Comex, Novo Riolog, Invest e TTD, com carga, requisitos e base legal em uma tela.</p>
+<div class="grade">
+<form class="painel" id="f" onsubmit="return false">
+<label>Vendas por mês (R$)<input id="valor" inputmode="numeric" value="1.000.000"></label>
+<label>Alíquota da venda interestadual<select id="aliq"><option value="4">4% (Resolução do Senado 13/2012)</option><option value="7">7%</option><option value="12">12%</option></select></label>
+<fieldset><legend>Sobre a sua empresa</legend>
+<label class="check"><input type="checkbox" id="matriz">Matriz no Rio de Janeiro</label>
+<label class="check"><input type="checkbox" id="radar">Radar ilimitado</label>
+<label class="check"><input type="checkbox" id="sc">Matriz ou filial em Santa Catarina</label>
+</fieldset>
+</form>
+<section>
+<div class="gate" id="gate">
+<h2>Seu resultado está pronto</h2>
+<p>Coloque seu e-mail para liberar a comparação completa nesta tela.</p>
+<form id="lib"><input id="mail" type="email" required aria-label="E-mail" placeholder="seu@email.com.br"><button>Liberar resultado</button></form>
+<small>Ao liberar, você concorda com a <a href="https://portalcomexrio.com.br/politica-e-privacidade/" target="_blank" rel="noopener">política de privacidade</a> do Portal.</small>
+</div>
+<div class="lista" id="lista" aria-live="polite"></div>
+<p class="nota">Estimativa da carga base, sem substituir análise fiscal. Antes de escolher um programa, valide com a área fiscal a modalidade de importação, o destino das vendas e os requisitos de cada estado. Fonte: Comparação dos benefícios vigentes, Portal ComexRio.</p>
+</section>
+</div>
+</main>
+<script>
+const PROG=[
+{n:'Rio Comex',uf:'RJ',c:{4:1.2,7:3.6,12:3.6},ad:'Sem adicional de ICMS.',quem:'Importadoras que vendem para filiais ou centros de distribuição no estado, ou para outros estados.',
+ req:['Importação pelos portos e aeroportos fluminenses','Desembaraço de mercadorias no RJ','Matriz sediada no RJ','Regularidade fiscal e cadastral no Estado','Radar ilimitado'],lei:'Lei 11.192/2026, regulamentada pelo Decreto 50.494/2026.',falta:e=>[!e.matriz&&'Matriz sediada no RJ',!e.radar&&'Radar ilimitado'].filter(Boolean)},
+{n:'Novo Riolog',uf:'RJ',c:{4:1.1},ad:'Soma o FOT, não incluído aqui: 20% em 2026 e 25% em 2027. Importadoras ficam fora do aumento.',quem:'Atacadistas, tradings e centros de distribuição que vendem para atacadistas ou varejistas.',
+ req:['Desembaraço de mercadorias no RJ','Objeto social atacadista ou exportador','Regularidade fiscal e cadastral no Estado','Não vender para clientes do RJ por outras UFs','Comprovar a condição de atacadista'],lei:'Lei 9.025/2020, Lei 9.746/2022 e Decreto 47.437/2020.',falta:()=>[]},
+{n:'Invest',uf:'ES',c:{4:1.2,7:3.6,12:3.6},ad:'Soma o adicional de 3,5% do Fundo para Equilíbrio Fiscal do ES, não incluído aqui.',quem:'Atacadistas, tradings, centros de distribuição e outras empresas.',
+ req:['Desembaraço nos portos do ES','Situação fiscal regular no Estado','Não ser beneficiário do INVESTES','Uso preferencial da infraestrutura do ES'],lei:'Lei 10.568/2016, Seção XII, art. 16; RICMS/ES, art. 338 B e Anexo III, art. 10.',falta:()=>[]},
+{n:'TTD',uf:'SC',c:{4:2.6,7:4,12:4},ad:'Na alíquota de 4%, cai para 1,4% após 36 meses. Lucro real destina 2% do IRPJ a fundos.',quem:'Diversos tipos de empresas, incluindo atacadistas e comércio exterior.',
+ req:['Investimento em estabelecimento ligado ao comércio exterior','Matriz ou filial em SC','Desembaraço de mercadorias em SC','Contribuição com fundos do Estado'],lei:'RICMS/SC, arts. 239 e 246.',falta:e=>[!e.sc&&'Matriz ou filial em SC'].filter(Boolean)}
+];
+const brl=v=>v.toLocaleString('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0});
+const pct=v=>v.toLocaleString('pt-BR',{maximumFractionDigits:1})+'%';
+// simular: ordena pela carga base; programa sem carga publicada para a alíquota fica por último
+function simular(valor,aliq){return PROG.map(p=>{const c=p.c[aliq];return{...p,carga:c??null,icms:c==null?null:valor*c/100,economia:c==null?null:valor*(aliq-c)/100}}).sort((a,b)=>(a.carga??99)-(b.carga??99))}
+console.assert(simular(1e6,4)[0].n==='Novo Riolog'&&simular(1e6,4)[0].icms===11000);
+console.assert(simular(1e6,4).find(p=>p.n==='TTD').economia===14000);
+console.assert(simular(1e6,12).at(-1).n==='Novo Riolog'&&simular(1e6,12).at(-1).icms===null);
+const $=i=>document.getElementById(i);
+let livre=false;
+const ler=()=>Number($('valor').value.replace(/\D/g,''))||0;
+function card(p,a,min,e){
+ const m=(x)=>livre?x:'<span class="oculto">R$ 00.000</span>';
+ const f=p.falta(e),top=livre&&p.carga===min;
+ return`<article class="card${top?' top':''}"><div class="topo"><div>${top?'<span class="tag">MENOR CARGA ANTES DOS ADICIONAIS</span>':''}<h2>${p.n} <span>${p.uf}</span></h2></div>
+ <div><div class="rot">Carga</div><div class="num">${livre?(p.carga==null?'Sem dado':pct(p.carga)):'<span class="oculto">0,0%</span>'}</div></div>
+ <div><div class="rot">ICMS por mês</div><div class="num">${p.icms==null&&livre?'Sem dado':m(brl(p.icms??0))}</div></div></div>
+ ${livre?`<div class="barra"><i style="width:${(p.carga??0)/a*100}%"></i></div>
+ <p class="eco">${p.economia==null?'O comparativo não traz carga para esta alíquota.':`<b>${brl(p.economia)} a menos</b> que os ${a}% sem benefício.`} ${p.ad}</p>
+ <div class="det"><div><h3>Para quem é</h3><p>${p.quem}</p><h3>Base legal</h3><p>${p.lei}</p></div>
+ <div><h3>O que exige</h3><ul>${p.req.map(r=>`<li>${f.includes(r)?`<span class="falta">${r} (confira)</span>`:r}</li>`).join('')}</ul></div></div>`:''}</article>`}
+function pinta(){const v=ler(),a=+$('aliq').value,e={matriz:$('matriz').checked,radar:$('radar').checked,sc:$('sc').checked},l=simular(v,a);
+ const min=Math.min(...l.filter(p=>p.carga!=null).map(p=>p.carga));
+ $('lista').innerHTML=l.map(p=>card(p,a,min,e)).join('')}
+$('f').addEventListener('input',pinta);
+$('valor').addEventListener('blur',()=>$('valor').value=ler().toLocaleString('pt-BR'));
+$('lib').addEventListener('submit',ev=>{ev.preventDefault();livre=true;$('gate').hidden=true;pinta()}); // shortcut: não grava o e-mail; na versão real, salvar no site antes de liberar
+pinta();
+</script></body></html>

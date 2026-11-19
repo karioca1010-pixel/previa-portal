@@ -1,0 +1,134 @@
+{
+ "01": {
+  "orig": "533x145",
+  "final": "478x130",
+  "ocupa": 0.26,
+  "fundo": null
+ },
+ "02": {
+  "orig": "550x378",
+  "final": "301x207",
+  "ocupa": 0.26,
+  "fundo": null
+ },
+ "03": {
+  "orig": "600x258",
+  "final": "380x164",
+  "ocupa": 0.26,
+  "fundo": null
+ },
+ "04": {
+  "orig": "600x298",
+  "final": "354x176",
+  "ocupa": 0.26,
+  "fundo": null
+ },
+ "05": {
+  "orig": "599x174",
+  "final": "463x134",
+  "ocupa": 0.26,
+  "fundo": null
+ },
+ "06": {
+  "orig": "600x196",
+  "final": "436x143",
+  "ocupa": 0.26,
+  "fundo": null
+ },
+ "07": {
+  "orig": "581x141",
+  "final": "506x123",
+  "ocupa": 0.26,
+  "fundo": null
+ },
+ "08": {
+  "orig": "600x97",
+  "final": "540x87",
+  "ocupa": 0.2,
+  "fundo": null
+ },
+ "09": {
+  "orig": "600x170",
+  "final": "469x133",
+  "ocupa": 0.26,
+  "fundo": null
+ },
+ "10": {
+  "orig": "518x125",
+  "final": "508x123",
+  "ocupa": 0.26,
+  "fundo": null
+ },
+ "11": {
+  "orig": "600x399",
+  "final": "306x203",
+  "ocupa": 0.26,
+  "fundo": null
+ },
+ "12": {
+  "orig": "549x237",
+  "final": "380x164",
+  "ocupa": 0.26,
+  "fundo": null
+ },
+ "13": {
+  "orig": "368x289",
+  "final": "281x221",
+  "ocupa": 0.26,
+  "fundo": null
+ },
+ "14": {
+  "orig": "600x160",
+  "final": "483x129",
+  "ocupa": 0.26,
+  "fundo": null
+ },
+ "15": {
+  "orig": "599x189",
+  "final": "444x140",
+  "ocupa": 0.26,
+  "fundo": null
+ },
+ "16": {
+  "orig": "542x120",
+  "final": "530x117",
+  "ocupa": 0.26,
+  "fundo": null
+ },
+ "17": {
+  "orig": "562x60",
+  "final": "540x58",
+  "ocupa": 0.13,
+  "fundo": null
+ },
+ "18": {
+  "orig": "600x327",
+  "final": "338x184",
+  "ocupa": 0.26,
+  "fundo": null
+ },
+ "19": {
+  "orig": "591x391",
+  "final": "307x203",
+  "ocupa": 0.26,
+  "fundo": null
+ },
+ "20": {
+  "orig": "600x231",
+  "final": "402x155",
+  "ocupa": 0.26,
+  "fundo": null
+ },
+ "21": {
+  "orig": "589x63",
+  "final": "540x58",
+  "ocupa": 0.13,
+  "fundo": null
+ },
+ "22": {
+  "orig": "466x273",
+  "final": "326x191",
+  "ocupa": 0.26,
+  "fundo": null
+ }
+}
