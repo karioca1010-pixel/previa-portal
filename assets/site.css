@@ -47,6 +47,10 @@ p{margin:0}
 .menu a:hover,.menu button:hover{background:#0a2e5c12}
 .menu a.btn-acao{background:var(--laranja);color:#05203F;padding:0 20px;border-radius:999px;margin-left:8px}
 .menu a.btn-acao:hover{background:#f07a42}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.cookies{position:fixed;z-index:50;left:16px;right:16px;bottom:16px;max-width:640px;margin:0 auto;background:var(--navy);color:#fff;border-radius:var(--raio);box-shadow:0 12px 32px #06305b55;padding:16px 20px;display:flex;gap:16px;align-items:center;font-size:15px}
+.cookies p{margin:0;flex:1}.cookies a{color:#fff;text-decoration:underline}
+@media (max-width:560px){.cookies{flex-direction:column;align-items:stretch}}
 .menu .idiomas{display:flex;gap:0;margin-left:6px;padding-left:8px;border-left:1px solid var(--linha)}
 .menu .idiomas a{font-size:13px;padding:12px 6px;color:#3B4A5E}
 .menu .idiomas svg{border-radius:2px;box-shadow:0 0 0 1px #0a2e5c26;flex:none}

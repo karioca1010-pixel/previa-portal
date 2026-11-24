@@ -216,10 +216,10 @@
 <section class="sec" id="novidades">
   <div class="wrap news">
     <div><span class="kicker">Novedades</span><h2>Suscríbase y manténgase al día con las novedades</h2></div>
-    <!-- Prévia: o envio será ligado ao formulário do site na versão final -->
     <form id="f-news" novalidate>
       <label for="email">Su correo electrónico</label>
       <input id="email" name="email" type="email" autocomplete="email" placeholder="Ingrese su correo electrónico aquí" required>
+      <label class="hp" aria-hidden="true">Sitio<input name="site" tabindex="-1" autocomplete="off"></label>
       <button class="btn btn-acao" type="submit">Enviar</button>
       <output for="email" aria-live="polite"></output>
     </form>
