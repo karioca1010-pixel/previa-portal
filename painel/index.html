@@ -10,6 +10,7 @@
 <p class="kicker">Dados oficiais do ComexStat</p>
 <h1>Comex do Rio em <span class="caixa">números</span></h1>
 <p class="sub" id="periodo">Carregando os dados do ComexStat…</p>
+<div class="troca" id="medida" role="group" aria-label="Medida"><button aria-pressed="true" data-m="fob">Valor em dólar (FOB)</button><button aria-pressed="false" data-m="kg">Peso em toneladas</button></div>
 <div class="kpis" id="kpis"></div>
 <a class="acao" href="produto">Buscar um produto específico</a>
 </div></header>
@@ -18,7 +19,11 @@
 <script>
 const MES=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
 const bi=v=>(v/1e9).toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:1});
-const din=v=>v>=1e9?`US$ ${bi(v)} bi`:`US$ ${Math.round(v/1e6).toLocaleString('pt-BR')} mi`;
+let M='fob',D,graf;
+const ton=v=>v>=1e9?`${(v/1e9).toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:1})} mi t`:`${Math.round(v/1e6).toLocaleString('pt-BR')} mil t`;
+const din=v=>M=='kg'?ton(v):v>=1e9?`US$ ${bi(v)} bi`:`US$ ${Math.round(v/1e6).toLocaleString('pt-BR')} mi`;
+const gr=v=>M=='kg'?`${bi(v)} mi t`:`US$ ${bi(v)} bi`; // eixo e totais: bilhões de dólares ou milhões de toneladas (kg/1e9)
+console.assert(ton(62993663258)==='63,0 mi t'&&ton(412345678)==='412 mil t');
 // a Receita grava os nomes das unidades sem acento e com siglas internas
 const ACENTO={Itaguai:'Itaguaí',Niteroi:'Niterói',Macae:'Macaé','Sao ':'São ',Galeao:'Galeão','Irf ':'Receita Federal em ','Alf ':''};
 const curto=s=>Object.entries(ACENTO).reduce((t,[a,b])=>t.replace(a,b),s.replace(/^\d+ - /,'').split(/[,;(]/)[0].trim().toLowerCase().replace(/(^|\s)\S/g,c=>c.toUpperCase()).replace(/\b(De|Do|Da|Dos|Das|E|Ou|Em)\b/g,w=>w.toLowerCase()));
@@ -27,37 +32,38 @@ const soma=(o,ano,ate)=>Object.entries(o).filter(([k])=>+k.slice(0,4)==ano&&+k.s
 
 function barras(lista,cor){const max=lista[0]?.[1]||1;return`<ul class="barras">${lista.map(([n,v])=>`<li><span class="nome" title="${n}">${curto(n)}</span><b>${din(v)}</b><div><i style="width:${v/max*100}%;background:${cor}"></i></div></li>`).join('')}</ul>`}
 
-function pinta(d){
+function pinta(D0){D=D0;const d=M=='kg'?{...D,...D.kg}:D;
  const {ano,mes}=d,e=d.mensal.exportacao,i=d.mensal.importacao;
  const ex=soma(e,ano,mes),exa=soma(e,ano-1,mes),im=soma(i,ano,mes),ima=soma(i,ano-1,mes);
  const varia=(a,b)=>{const p=(a/b-1)*100;return p>=0?`<em>+${p.toLocaleString('pt-BR',{maximumFractionDigits:1})}% sobre ${ano-1}</em>`:''}; // só mostra quando cresce
- document.getElementById('periodo').textContent=`Janeiro a ${['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'][mes-1]} de ${ano}, em dólares (FOB). Atualiza sozinho quando o governo publica um mês novo.`;
+ document.getElementById('periodo').textContent=`Janeiro a ${['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'][mes-1]} de ${ano}, ${M=='kg'?'em toneladas (peso líquido)':'em dólares (FOB)'}. Atualiza sozinho quando o governo publica um mês novo.`;
  document.getElementById('kpis').innerHTML=`
- ${d.ranking<=3?`<div class="kpi destaque"><span>Posição no Brasil</span><strong>${d.ranking}º</strong><em>maior estado exportador</em></div>`:''}
- <div class="kpi"><span>Exportação</span><strong>US$ ${bi(ex)} bi</strong>${varia(ex,exa)}</div>
- <div class="kpi"><span>Importação</span><strong>US$ ${bi(im)} bi</strong>${varia(im,ima)}</div>
- <div class="kpi"><span>Saldo da balança</span><strong>US$ ${bi(ex-im)} bi</strong>${ex>im?'<em>superávit</em>':''}</div>`;
+ ${M!='kg'&&d.ranking<=3?`<div class="kpi destaque"><span>Posição no Brasil</span><strong>${d.ranking}º</strong><em>maior estado exportador</em></div>`:''}
+ <div class="kpi"><span>Exportação</span><strong>${gr(ex)}</strong>${varia(ex,exa)}</div>
+ <div class="kpi"><span>Importação</span><strong>${gr(im)}</strong>${varia(im,ima)}</div>
+ ${M=='kg'?'':`<div class="kpi"><span>Saldo da balança</span><strong>US$ ${bi(ex-im)} bi</strong>${ex>im?'<em>superávit</em>':''}</div>`}`;
  const meses=Object.keys(e).sort();
  document.getElementById('conteudo').innerHTML=`
- <section class="largo"><h2>Exportação e importação por mês</h2><p class="nota">Valores mensais em bilhões de dólares</p>
+ <section class="largo"><h2>Exportação e importação por mês</h2><p class="nota">${M=='kg'?'Peso mensal em milhões de toneladas':'Valores mensais em bilhões de dólares'}</p>
   <div class="legenda"><span><i style="background:var(--exp)"></i>Exportação</span><span><i style="background:var(--imp)"></i>Importação</span></div>
   <div class="grafico"><canvas id="linha" role="img" aria-label="Exportação e importação mensais do RJ"></canvas></div>
-  <details><summary>Ver em tabela</summary><table><tr><th>Mês</th><th>Exportação</th><th>Importação</th></tr>${meses.map(k=>`<tr><td>${MES[+k.slice(5)-1]}/${k.slice(0,4)}</td><td>US$ ${bi(e[k])} bi</td><td>US$ ${bi(i[k]||0)} bi</td></tr>`).join('')}</table></details></section>
+  <details><summary>Ver em tabela</summary><table><tr><th>Mês</th><th>Exportação</th><th>Importação</th></tr>${meses.map(k=>`<tr><td>${MES[+k.slice(5)-1]}/${k.slice(0,4)}</td><td>${gr(e[k])}</td><td>${gr(i[k]||0)}</td></tr>`).join('')}</table></details></section>
  <section><h2>Principais destinos</h2><p class="nota">Exportação no ano</p>${barras(d.destinos,'var(--exp)')}</section>
  <section><h2>Principais origens</h2><p class="nota">Importação no ano</p>${barras(d.origens,'var(--imp)')}</section>
  <section><h2>Produtos exportados</h2><p class="nota">Exportação no ano, por produto</p>
-  <div class="troca" role="group" aria-label="Filtro de produtos"><button aria-pressed="true" data-v="todos">Todos</button><button aria-pressed="false" data-v="sem">Sem petróleo</button></div>
+  <div class="troca" id="trocaprod" role="group" aria-label="Filtro de produtos"><button aria-pressed="true" data-v="todos">Todos</button><button aria-pressed="false" data-v="sem">Sem petróleo</button></div>
   <div id="prodexp">${barras(d.produtos_exp,'var(--exp)')}</div></section>
  <section><h2>Produtos importados</h2><p class="nota">Importação no ano, por produto</p>${barras(d.produtos_imp,'var(--imp)')}</section>
  <section class="largo"><h2>Por onde sai a exportação</h2><p class="nota">Unidades da Receita Federal no RJ onde a exportação foi despachada</p>${barras(d.portos,'var(--exp)')}</section>`;
- document.querySelectorAll('.troca button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.troca button').forEach(x=>x.setAttribute('aria-pressed',x===b));const sem=b.dataset.v=='sem';document.getElementById('prodexp').innerHTML=barras(sem?d.produtos_exp_sem_petroleo:d.produtos_exp,'var(--exp)')});
- new Chart(document.getElementById('linha'),{type:'line',data:{labels:meses.map(k=>`${MES[+k.slice(5)-1]}/${k.slice(2,4)}`),datasets:[
+ document.querySelectorAll('#trocaprod button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#trocaprod button').forEach(x=>x.setAttribute('aria-pressed',x===b));const sem=b.dataset.v=='sem';document.getElementById('prodexp').innerHTML=barras(sem?d.produtos_exp_sem_petroleo:d.produtos_exp,'var(--exp)')});
+ graf?.destroy();graf=new Chart(document.getElementById('linha'),{type:'line',data:{labels:meses.map(k=>`${MES[+k.slice(5)-1]}/${k.slice(2,4)}`),datasets:[
   {label:'Exportação',data:meses.map(k=>e[k]/1e9),borderColor:'#0085CF',backgroundColor:'#0085CF',borderWidth:2,pointRadius:0,pointHoverRadius:5,tension:.25},
   {label:'Importação',data:meses.map(k=>(i[k]||0)/1e9),borderColor:'#E9672B',backgroundColor:'#E9672B',borderWidth:2,pointRadius:0,pointHoverRadius:5,tension:.25}]},
-  options:{maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>` ${c.dataset.label}: US$ ${c.parsed.y.toLocaleString('pt-BR',{maximumFractionDigits:2})} bi`}}},
-  scales:{x:{grid:{display:false},ticks:{font:{family:'Manrope',weight:700},color:'#6E7C93',maxRotation:0,autoSkip:true}},y:{beginAtZero:true,grid:{color:'rgba(10,46,92,.08)'},border:{display:false},ticks:{font:{family:'Manrope',weight:700},color:'#6E7C93',callback:v=>`US$ ${v} bi`}}}}});
+  options:{maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>{const n=c.parsed.y.toLocaleString('pt-BR',{maximumFractionDigits:2});return M=='kg'?` ${c.dataset.label}: ${n} mi t`:` ${c.dataset.label}: US$ ${n} bi`}}}},
+  scales:{x:{grid:{display:false},ticks:{font:{family:'Manrope',weight:700},color:'#6E7C93',maxRotation:0,autoSkip:true}},y:{beginAtZero:true,grid:{color:'rgba(10,46,92,.08)'},border:{display:false},ticks:{font:{family:'Manrope',weight:700},color:'#6E7C93',callback:v=>M=='kg'?`${v} mi t`:`US$ ${v} bi`}}}}});
  document.getElementById('fonte').textContent=`Fonte: ComexStat, Ministério do Desenvolvimento, Indústria, Comércio e Serviços. Dados publicados em ${d.atualizado.split('-').reverse().join('/')}.`;
 }
 async function carrega(){try{const r=await fetch('dados.json',{cache:'no-store'});if(r.status==503)return setTimeout(carrega,4000);pinta(await r.json())}catch(e){document.getElementById('conteudo').innerHTML='<p class="carregando">Não foi possível carregar os dados agora.</p>'}}
+document.querySelectorAll('#medida button').forEach(b=>b.onclick=()=>{M=b.dataset.m;document.querySelectorAll('#medida button').forEach(x=>x.setAttribute('aria-pressed',x===b));if(D)pinta(D)});
 carrega();
 </script></body></html>

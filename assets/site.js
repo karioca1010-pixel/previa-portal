@@ -27,3 +27,9 @@ document.querySelectorAll('[data-carrossel]').forEach(c=>{
 (()=>{const hero=document.querySelector('.hero'),b=hero?.querySelector('.hero-pausa');if(!b)return;let manual=false;
   b.addEventListener('click',()=>{manual=!manual;hero.classList.toggle('pausado',manual);b.setAttribute('aria-pressed',manual);b.setAttribute('aria-label',manual?'Retomar o movimento do navio':'Pausar o movimento do navio')});
   new IntersectionObserver(([e])=>{if(!manual)hero.classList.toggle('pausado',!e.isIntersecting)}).observe(hero);})();
+
+document.querySelectorAll('[data-rota]').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('[data-rota]').forEach(x=>x.setAttribute('aria-pressed',x===b));
+  document.querySelectorAll('[data-rota-ficha]').forEach(f=>{f.hidden=f.dataset.rotaFicha!==b.dataset.rota;
+    if(!f.hidden){const i=f.querySelector('iframe[data-src]');if(i){i.src=i.dataset.src;i.removeAttribute('data-src')}
+      if(matchMedia('(max-width:900px)').matches)f.scrollIntoView({behavior:'smooth',block:'start'})}});}));
