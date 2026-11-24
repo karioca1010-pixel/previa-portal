@@ -49,6 +49,8 @@ p{margin:0}
 .menu a.btn-acao:hover{background:#f07a42}
 .menu .idiomas{display:flex;gap:0;margin-left:6px;padding-left:8px;border-left:1px solid var(--linha)}
 .menu .idiomas a{font-size:13px;padding:12px 6px;color:#3B4A5E}
+.menu .idiomas svg{border-radius:2px;box-shadow:0 0 0 1px #0a2e5c26;flex:none}
+.menu .idiomas a:not([aria-current]) svg{opacity:.72}.menu .idiomas a:hover svg{opacity:1}
 .menu .idiomas a[aria-current]{color:var(--navy);font-weight:800;text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:2px}
 .sub{position:relative}
 .sub ul{position:absolute;top:100%;left:0;min-width:270px;list-style:none;margin:0;padding:8px;background:#fff;border-radius:var(--raio-p);box-shadow:var(--sombra);opacity:0;visibility:hidden;transform:translateY(6px);transition:.18s ease}
