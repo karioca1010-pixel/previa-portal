@@ -47,6 +47,9 @@ p{margin:0}
 .menu a:hover,.menu button:hover{background:#0a2e5c12}
 .menu a.btn-acao{background:var(--laranja);color:#05203F;padding:0 20px;border-radius:999px;margin-left:8px}
 .menu a.btn-acao:hover{background:#f07a42}
+.menu .idiomas{display:flex;gap:0;margin-left:6px;padding-left:8px;border-left:1px solid var(--linha)}
+.menu .idiomas a{font-size:13px;padding:12px 6px;color:#3B4A5E}
+.menu .idiomas a[aria-current]{color:var(--navy);font-weight:800;text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:2px}
 .sub{position:relative}
 .sub ul{position:absolute;top:100%;left:0;min-width:270px;list-style:none;margin:0;padding:8px;background:#fff;border-radius:var(--raio-p);box-shadow:var(--sombra);opacity:0;visibility:hidden;transform:translateY(6px);transition:.18s ease}
 .sub:hover ul,.sub:focus-within ul{opacity:1;visibility:visible;transform:none}
@@ -129,6 +132,8 @@ a.cartao:hover .foto img{transform:scale(1.03)}
   .menu.aberto{display:flex}
   .menu a,.menu button{width:100%;font-size:17px;padding:14px 8px;min-height:48px}
   .menu a.btn-acao{margin:12px 0 0;justify-content:center}
+  .menu .idiomas{margin:8px 0 0;padding:8px 0 0;border-left:0;border-top:1px solid var(--linha)}
+  .menu .idiomas a{width:auto;font-size:16px;padding:14px 16px}
   .sub ul{position:static;opacity:1;visibility:visible;transform:none;box-shadow:none;background:none;padding:0 0 0 16px}
   .sub>button{pointer-events:none;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--azul-marca);min-height:36px;padding-bottom:0}
   .sub>button svg{display:none}
